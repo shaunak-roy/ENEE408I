@@ -40,8 +40,6 @@ for i in range(N + M - 1):
 
 print("Time delay: ", np.argmax(cross) * time_per_sample, "sec")
 
-
-
 # (4) Angle theta using law of cosines + law of sines (prof derivation)
 
 c = 343.0      # speed of sound (m/s)
@@ -72,7 +70,6 @@ if d1 < 0 and d2 < 0:
     d1 *= -1
     d2 *= -1
 
-# 
 # phi1 = arccos( (-d2^2 + d1^2 + 4r^2) / (4 d1 r) )
 cos_phi1 = (-d2**2 + d1**2 + 4*(r**2)) / (4*d1*r)
 cos_phi1 = np.clip(cos_phi1, -1.0, 1.0)

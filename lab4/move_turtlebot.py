@@ -1,22 +1,37 @@
-import rospy
+import rclpy
+from rclpy.node import Node
 from geometry_msgs.msg import Twist
 
-def move():
-    rospy.init_node('turtlebot3_autonomous_move', anonymous=True)
-    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-    rate = rospy.Rate(10)  # 10 Hz
-    vel_msg = Twist()
 
-    # Move forward
-    vel_msg.linear.x = 0.2  # Forward speed
-    vel_msg.angular.z = 0.0  # No rotation
+class Turtlebot3Move(Node):
+    def __init__(self):
+        super().__init__('turtlebot3_autonomous_move')
 
-    while not rospy.is_shutdown():
-        pub.publish(vel_msg)
-        rate.sleep()
+        self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10)
+
+        self.timer = self.create_timer(0.1, self.timer_callback)  # 10 Hz
+
+    def timer_callback(self):
+        vel_msg = Twist()
+        vel_msg.linear.x = 0.2
+        vel_msg.angular.z = 0.0
+
+        self.publisher_.publish(vel_msg)
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    node = Turtlebot3Move()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+
+    node.destroy_node()
+    rclpy.shutdown()
+
 
 if __name__ == '__main__':
-    try:
-        move()
-    except rospy.ROSInterruptException:
-        pass
+    main()

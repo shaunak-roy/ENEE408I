@@ -5,7 +5,7 @@ import yaml
 def main():
 
     modes = {0: 'train', 1: 'test', 2: 'video'}
-    mode = 1
+    mode = 2
 
     match modes[mode]:
         case 'train':

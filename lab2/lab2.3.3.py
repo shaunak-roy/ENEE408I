@@ -4,7 +4,7 @@
 
 from scipy.io.wavfile import read as read_wav
 
-sample_rate, data = read_wav("/Users/amandavielmann/Downloads/Cafe_with_noise.wav")
+sample_rate, data = read_wav("Cafe_with_noise.wav")
 
 print(f"The original sampling frequency is: {sample_rate} Hz")
 
@@ -16,7 +16,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io.wavfile import read as read_wav
 
-sample_rate, data = read_wav("/Users/amandavielmann/Downloads/Cafe_with_noise.wav")
+sample_rate, data = read_wav("Cafe_with_noise.wav")
 
 
 if len(data.shape) > 1:
@@ -64,7 +64,7 @@ def lowpass(data: np.ndarray, cutoff: float, sample_rate: float, poles: int = 5)
     return filtered_data
 
 
-sample_rate, data = scipy.io.wavfile.read("/Users/amandavielmann/Downloads/Cafe_with_noise.wav")
+sample_rate, data = scipy.io.wavfile.read("Cafe_with_noise.wav")
 
 
 if data.ndim > 1:

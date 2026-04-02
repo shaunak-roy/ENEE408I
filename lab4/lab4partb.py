@@ -37,7 +37,7 @@ class TurtleBot3SafetyTeleop(Node):
         self.max_angular = 1.5
         self.min_angular = -1.5
 
-        self.safety_threshold = 0.30
+        self.safety_threshold = 0.10
         self.front_distance = float('inf')
         self.obstacle_detected = False
 

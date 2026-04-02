@@ -7,6 +7,8 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 
+from rclpy.qos import QoSProfile, ReliabilityPolicy
+
 
 def get_key(timeout=0.1):
     rlist, _, _ = select.select([sys.stdin], [], [], timeout)
@@ -19,14 +21,17 @@ class TeleopSafety(Node):
     def __init__(self):
         super().__init__("teleop_safety")
         self.pub = self.create_publisher(Twist, "/cmd_vel", 10)
-        self.sub = self.create_subscription(LaserScan, "/scan", self.scan_cb, 10)
+
+        qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
+
+        self.sub = self.create_subscription(LaserScan, "/scan", self.scan_cb, qos)
 
         self.lin = 0.0
         self.ang = 0.0
         self.lin_step = 0.05
         self.ang_step = 0.2
 
-        self.safety_thresh = 0.30  # meters
+        self.safety_thresh = 0.10  # meters
         self.front_min = float("inf")  # updated by scan callback
 
         self.timer = self.create_timer(0.1, self.tick)

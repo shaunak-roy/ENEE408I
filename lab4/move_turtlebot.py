@@ -8,12 +8,27 @@ class Turtlebot3Move(Node):
         super().__init__('turtlebot3_autonomous_move')
 
         self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10)
+        
 
         self.timer = self.create_timer(0.1, self.timer_callback)  # 10 Hz
 
     def timer_callback(self):
         vel_msg = Twist()
-        vel_msg.linear.x = 0.2
+
+        match input():
+            case 'W':
+                vel_msg.linear.x = 0.2
+                vel_msg.angular.z = 0.0
+            case 'A':
+                vel_msg.linear.x = 0.2
+                vel_msg.angular.z = 0.0
+            case 'S':
+                vel_msg.linear.x = 0.2
+                vel_msg.angular.z = 0.0
+            case 'D':
+                vel_msg.linear.x = 0.2
+                vel_msg.angular.z = 0.0
+
         vel_msg.angular.z = 0.0
 
         self.publisher_.publish(vel_msg)

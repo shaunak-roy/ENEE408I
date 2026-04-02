@@ -8,7 +8,6 @@ from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 
-
 IMAGE_TOPIC = "/camera/image_raw"  
 
 

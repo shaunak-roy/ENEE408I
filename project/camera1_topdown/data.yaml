@@ -1,0 +1,7 @@
+# Camera 1: Top-down (USBFHD01M) dataset config
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 1
+names: ['package']

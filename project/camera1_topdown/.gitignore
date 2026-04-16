@@ -1,0 +1,7 @@
+runs/
+*.pt
+data_raw/*.jpg
+data_labeled/
+__pycache__/
+*.pyc
+.DS_Store

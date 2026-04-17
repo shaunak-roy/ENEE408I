@@ -1,4 +1,4 @@
-# datasplit.py — Camera 2: split labeled data into train/valid/test (70/20/10)
+# datasplit.py — Camera 1: split labeled data into train/valid/test (70/20/10)
 
 import os
 import shutil
@@ -24,7 +24,7 @@ if not paired:
     print("No matched image-label pairs found!")
     exit(1)
 
-print(f"Camera 2: found {len(paired)} labeled images")
+print(f"Camera 1: found {len(paired)} labeled images")
 
 random.seed(RANDOM_SEED)
 random.shuffle(paired)
@@ -49,4 +49,4 @@ for split_name, pairs in splits.items():
         shutil.copy2(os.path.join(LABEL_DIR, label_file), os.path.join(lbl_out, label_file))
     print(f"  {split_name}: {len(pairs)} images")
 
-print("Camera 2 split complete.")
+print("Camera 1 split complete.")

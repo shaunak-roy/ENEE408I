@@ -7,7 +7,7 @@ import cv2
 import re
 
 # ===== CONFIG =====
-CAMERA_INDEX = 0         # Top-down USBFHD01M — change if needed (try 0, 1, 2)
+CAMERA_INDEX = 1         # Top-down USBFHD01M — change if needed (try 0, 1, 2)
 FRAME_WIDTH = 1280
 FRAME_HEIGHT = 720
 SAVE_DIR = "./data_raw"

@@ -16,15 +16,12 @@ import threading
 import time
 
 # ── Edit these ──────────────────────────────────────────────────────
-CAM    = 5  # angled camera - change if different
+CAM    = 0
 K_PATH = "cam_K.npy"
 D_PATH = "cam_D.npy"
 
-PROCESS_WIDTH  = 640
-PROCESS_HEIGHT = 480
-
 START_BALANCE   =   0
-START_ZOOM      =  30
+START_ZOOM      =  100
 START_CX_OFFSET = 200
 START_CY_OFFSET = 200
 START_FX_SCALE  = 100
@@ -45,16 +42,25 @@ class CameraThread:
         self.cap = cv2.VideoCapture(cam_index)
         if not self.cap.isOpened():
             raise RuntimeError(f"Cannot open camera {cam_index}")
+        self.cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        self.cap.set(cv2.CAP_PROP_FPS, 30)
+        self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
         self.frame   = None
         self.lock    = threading.Lock()
         self.running = True
         threading.Thread(target=self._run, daemon=True).start()
 
     def _run(self):
+        fps_count = 0
+        fps_start = time.time()
         while self.running:
             ret, frame = self.cap.read()
             if ret:
-                frame = cv2.resize(frame, (PROCESS_WIDTH, PROCESS_HEIGHT))
+                fps_count += 1
+                if fps_count % 30 == 0:
+                    elapsed = time.time() - fps_start
+                    print(f"\rCamera FPS: {30/elapsed:.1f}  ", end="", flush=True)
+                    fps_start = time.time()
                 with self.lock:
                     self.frame = frame
 
@@ -154,7 +160,6 @@ def build_maps(K, D, w, h, balance, zoom,
     new_K[0, 0] /= zoom
     new_K[1, 1] /= zoom
 
-    # CUDA remap needs CV_32FC1, CPU remap works best with CV_16SC2
     map_type = cv2.CV_32FC1 if CUDA_AVAILABLE else cv2.CV_16SC2
     map1, map2 = cv2.fisheye.initUndistortRectifyMap(
         K_mod, D_mod, np.eye(3), new_K, (w, h), map_type
@@ -175,13 +180,15 @@ def main():
     while cam.read() is None:
         time.sleep(0.05)
 
-    h, w = PROCESS_HEIGHT, PROCESS_WIDTH
+    # Get actual camera resolution
+    first_frame = cam.read()
+    while first_frame is None:
+        first_frame = cam.read()
+    h, w = first_frame.shape[:2]
     print(f"Camera {CAM} running at {w}x{h}\n")
 
     cv2.namedWindow(WIN_ORIG,  cv2.WINDOW_NORMAL)
     cv2.namedWindow(WIN_UNDST, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(WIN_ORIG,  800, 600)
-    cv2.resizeWindow(WIN_UNDST, 800, 600)
 
     cv2.createTrackbar("Balance  (display)", WIN_UNDST, START_BALANCE,   100, lambda x: None)
     cv2.createTrackbar("Zoom     (display)", WIN_UNDST, START_ZOOM,      100, lambda x: None)

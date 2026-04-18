@@ -25,7 +25,7 @@ class Mode(Enum):
 # ── Edit these ──────────────────────────────────────────────────────
 MODE          = Mode.CALIBRATE          # change to Mode.CAPTURE or Mode.UNDISTORT
 
-CAM           = 5                       # camera index
+CAM           = 0                       # camera index
 OUT           = "calibration_data_raw"  # folder to save/read calibration images
 N             = 30                      # number of images to capture
 PREFIX        = "cam"                   # output prefix → cam_K.npy, cam_D.npy

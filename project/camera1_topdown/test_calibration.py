@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # ── Paste your values here ──────────────────
-IMAGE = "calibration_data_raw/frame_001.png"   # any image from your camera
+IMAGE = "calibration_data_raw/frame_1.jpg"   # any image from your camera
 K_PATH = "cam_K.npy"
 D_PATH = "cam_D.npy"
 K = np.load(K_PATH)

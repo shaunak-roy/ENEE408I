@@ -21,7 +21,7 @@ K_PATH = "cam_K.npy"
 D_PATH = "cam_D.npy"
 
 START_BALANCE   =   0
-START_ZOOM      =  30
+START_ZOOM      =  100
 START_CX_OFFSET = 200
 START_CY_OFFSET = 200
 START_FX_SCALE  = 100
@@ -189,8 +189,6 @@ def main():
 
     cv2.namedWindow(WIN_ORIG,  cv2.WINDOW_NORMAL)
     cv2.namedWindow(WIN_UNDST, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(WIN_ORIG,  800, 600)
-    cv2.resizeWindow(WIN_UNDST, 800, 600)
 
     cv2.createTrackbar("Balance  (display)", WIN_UNDST, START_BALANCE,   100, lambda x: None)
     cv2.createTrackbar("Zoom     (display)", WIN_UNDST, START_ZOOM,      100, lambda x: None)

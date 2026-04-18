@@ -24,8 +24,8 @@ class PiCameraPublisher(Node):
         # ===== PARAMETERS (overridable via --ros-args) =====
         self.declare_parameter('camera_index', 0)
         self.declare_parameter('topic_name', '/camera/image/compressed')
-        self.declare_parameter('fps', 15.0)
-        self.declare_parameter('jpeg_quality', 80)   # 0-100, higher = better quality, more bandwidth
+        self.declare_parameter('fps', 30.0)
+        self.declare_parameter('jpeg_quality', 75)   # 0-100, higher = better quality, more bandwidth
         self.declare_parameter('frame_width', 640)
         self.declare_parameter('frame_height', 480)
 

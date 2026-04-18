@@ -23,9 +23,9 @@ class Mode(Enum):
 
 
 # ── Edit these ──────────────────────────────────────────────────────
-MODE          = Mode.UNDISTORT          # change to Mode.CAPTURE or Mode.UNDISTORT
+MODE          = Mode.CALIBRATE          # change to Mode.CAPTURE or Mode.UNDISTORT
 
-CAM           = 3                       # camera index
+CAM           = 5                       # camera index
 OUT           = "calibration_data_raw"  # folder to save/read calibration images
 N             = 30                      # number of images to capture
 PREFIX        = "cam"                   # output prefix → cam_K.npy, cam_D.npy
@@ -75,7 +75,7 @@ def capture(cam_index, out_dir, n):
         if key == ord('q'):
             break
         if key == ord(' ') and found:
-            path = os.path.join(out_dir, f"frame_{count:03d}.png")
+            path = os.path.join(out_dir, f"frame_{count}.png")
             cv2.imwrite(path, frame)
             count += 1
             print(f"  Saved {path}  ({count}/{n})")

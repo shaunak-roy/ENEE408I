@@ -1,4 +1,4 @@
-# Camera 2: 45-degree Angled (side-mounted) dataset config
+# Camera 1: Top-down (USBFHD01M) dataset config
 train: train/images
 val: valid/images
 test: test/images

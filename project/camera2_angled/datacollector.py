@@ -1,5 +1,5 @@
-# datacollector.py — Camera 2 (45-degree Angled View)
-# Capture training frames from the side-mounted angled camera.
+# datacollector.py — Camera 1 (Top-down USBFHD01M)
+# Capture training frames from the overhead camera.
 # Press 'p' to save a frame, 'q' to quit.
 
 import os
@@ -7,14 +7,15 @@ import cv2
 import re
 
 # ===== CONFIG =====
-CAMERA_INDEX = 1         # Angled camera — usually the second camera (change to 0 / 2 if needed)
+CAMERA_INDEX = 3          # Top-down USBFHD01M — change if needed (try 0, 1, 2)
 FRAME_WIDTH = 1280
 FRAME_HEIGHT = 720
 SAVE_DIR = "./data_raw"
-WINDOW_NAME = "Camera 2 (Angled) - Data Collector"
+WINDOW_NAME = "Camera 1 (Top-Down) - Data Collector"
 
 
 def get_starting_index(folder):
+    """Find next available frame number so we don't overwrite."""
     pattern = re.compile(r"frame_(\d+)\.jpg")
     max_index = -1
     if not os.path.exists(folder):
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     cam = cv2.VideoCapture(CAMERA_INDEX)
     if not cam.isOpened():
         print(f"ERROR: Could not open camera at index {CAMERA_INDEX}")
-        print("Try changing CAMERA_INDEX — if only one camera is plugged in, this should be 0.")
+        print("Try changing CAMERA_INDEX to 1 or 2 if you have multiple cameras connected.")
         exit(1)
 
     cam.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
@@ -42,7 +43,7 @@ if __name__ == '__main__':
 
     actual_w = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
     actual_h = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    print(f"Camera 2 (Angled) opened: {actual_w}x{actual_h}")
+    print(f"Camera 1 (Top-Down) opened: {actual_w}x{actual_h}")
 
     frame_count = get_starting_index(SAVE_DIR)
     print(f"Starting from frame index: {frame_count}")

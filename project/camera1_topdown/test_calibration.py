@@ -1,0 +1,32 @@
+import cv2
+import numpy as np
+
+# ── Paste your values here ──────────────────
+IMAGE = "calibration_data_raw/frame_1.jpg"   # any image from your camera
+K = np.array([[240.9570658243046, 0.0, 319.4510012779541], [0.0, 240.96213554513375, 248.1313386542023], [0.0, 0.0, 1.0]])
+D = np.array([[-0.0], [-0.0005968191770500035], [-0.002388045043630666], [0.000107975556350965]])
+BALANCE = 0.0
+ZOOM    = 1.0
+# ────────────────────────────────────────────
+
+img = cv2.imread(IMAGE)
+if img is None:
+    print(f"ERROR: Could not read '{IMAGE}'")
+    exit(1)
+h, w = img.shape[:2]
+
+new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(
+    K, D, (w, h), np.eye(3), balance=BALANCE
+)
+map1, map2 = cv2.fisheye.initUndistortRectifyMap(
+    K, D, np.eye(3), new_K, (w, h), cv2.CV_16SC2
+)
+result = cv2.remap(img, map1, map2,
+                   interpolation=cv2.INTER_LINEAR,
+                   borderMode=cv2.BORDER_CONSTANT)
+
+cv2.imshow("Original", img)
+cv2.imshow("Undistorted", result)
+cv2.imwrite("test_undistorted.jpg", result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()

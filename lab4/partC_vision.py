@@ -29,9 +29,9 @@ class VisionFollower(Node):
 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        # Example: green object 
-        lower = np.array([35, 80, 80], dtype=np.uint8)
-        upper = np.array([85, 255, 255], dtype=np.uint8)
+        # Example: orange object 
+        lower = np.array([10, 100, 20])
+        upper = np.array([25, 255, 255])
         mask = cv2.inRange(hsv, lower, upper)
 
         # Clean mask

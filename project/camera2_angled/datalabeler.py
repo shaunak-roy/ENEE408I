@@ -1,4 +1,4 @@
-# datalabeler.py — Camera 2 (Angled) labeling tool
+# datalabeler.py — Camera 1 (Top-down) labeling tool
 # Click twice to draw a bounding box.
 # 'n' = next/save | 'u' = undo | 's' = skip | 'q' = quit
 
@@ -6,6 +6,7 @@ import cv2
 import os
 import re
 
+# ===== CONFIG =====
 IMAGE_DIR = "./data_raw"
 LABEL_DIR = "./data_labeled"
 CLASS_ID = 0   # 0 = package (update data.yaml if you add more classes)
@@ -65,7 +66,7 @@ if not images:
     print("Run datacollector.py first to capture images.")
     exit(1)
 
-print(f"Found {len(images)} images from Camera 2 (Angled)")
+print(f"Found {len(images)} images from Camera 1 (Top-Down)")
 
 for idx, img_name in enumerate(images):
     img_path = os.path.join(IMAGE_DIR, img_name)
@@ -75,21 +76,22 @@ for idx, img_name in enumerate(images):
         print(f"Skipping unreadable: {img_name}")
         continue
 
+    # skip if already labeled
     label_name = os.path.splitext(img_name)[0] + ".txt"
     if os.path.exists(os.path.join(LABEL_DIR, label_name)):
         print(f"Already labeled, skipping: {img_name}")
         continue
 
     boxes = []
-    cv2.namedWindow("Camera 2 - Label")
-    cv2.setMouseCallback("Camera 2 - Label", mouse_callback)
+    cv2.namedWindow("Camera 1 - Label")
+    cv2.setMouseCallback("Camera 1 - Label", mouse_callback)
 
     print(f"\n[{idx+1}/{len(images)}] {img_name}")
     print("click x2 = box | n = save/next | u = undo | s = skip | q = quit")
 
     while True:
         display = draw_boxes(current_img)
-        cv2.imshow("Camera 2 - Label", display)
+        cv2.imshow("Camera 1 - Label", display)
         key = cv2.waitKey(1) & 0xFF
 
         if key == ord('n'):
@@ -106,4 +108,4 @@ for idx, img_name in enumerate(images):
             exit()
 
 cv2.destroyAllWindows()
-print("Camera 2 labeling complete!")
+print("Camera 1 labeling complete!")

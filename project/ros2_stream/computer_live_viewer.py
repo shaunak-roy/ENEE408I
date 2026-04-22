@@ -21,6 +21,9 @@ class LiveViewer(Node):
         self.declare_parameter('input_topic', '/camera/image/compressed')
         input_topic = self.get_parameter('input_topic').value
 
+        if input_topic is None:
+            return  # or raise, or log
+
         self.subscription = self.create_subscription(
             CompressedImage,
             input_topic,

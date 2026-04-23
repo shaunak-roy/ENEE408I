@@ -1,4 +1,4 @@
-# datatrainer.py — Camera 1 (Top-down) YOLO training / testing / live inference
+# datatrainer.py — Camera 2 (Angled) YOLO training / testing / live inference
 # Set mode: 0 = train, 1 = test, 2 = live video
 
 from ultralytics import YOLO
@@ -25,8 +25,8 @@ def main():
     elif mode == 1:
         model = YOLO("runs/detect/camera2_angled/weights/best.pt")
         metrics = model.val(split='test')
-        print(f"Camera 1 mAP50:    {metrics.box.map50:.4f}")
-        print(f"Camera 1 mAP50-95: {metrics.box.map:.4f}")
+        print(f"Camera 2 mAP50:    {metrics.box.map50:.4f}")
+        print(f"Camera 2 mAP50-95: {metrics.box.map:.4f}")
 
     elif mode == 2:
         model = YOLO("runs/detect/camera2_angled/weights/best.pt")

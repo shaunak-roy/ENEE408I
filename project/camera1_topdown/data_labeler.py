@@ -13,7 +13,7 @@ IMAGE_DIR    = "./package_data_raw"
 LABEL_DIR    = "./package_data_distorted_labeled"
 YAML_PATH    = "./data.yaml"
 NUM_WORKERS  = 3                      # total number of people labeling
-WORKER_ID    = 2                      # this person's ID (1 to NUM_WORKERS)
+WORKER_ID    = 3                      # this person's ID (1 to NUM_WORKERS)
 # ==================
 
 # Load classes from data.yaml

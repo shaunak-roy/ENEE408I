@@ -4,8 +4,8 @@ import os
 import shutil
 import random
 
-IMAGE_DIR = "./package_data_raw"
-LABEL_DIR = "./package_data_labeled"
+IMAGE_DIR = "./package_data_undistorted"
+LABEL_DIR = "./package_data_undistorted_labeled"
 OUTPUT_BASE = "."
 
 TRAIN_RATIO = 0.70

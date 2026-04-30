@@ -7,7 +7,7 @@ import cv2
 CAMERA_INDEX = 3   # must match datacollector.py
 
 def main():
-    mode = 0  # 0 = train, 1 = test, 2 = video
+    mode = 1  # 0 = train, 1 = test, 2 = video
 
     if mode == 0:
         model = YOLO("yolov8n.pt")

@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 
 # ── Paste your values here ──────────────────
-IMAGE = "package_data_raw/frame_1.jpg"   # any image from your camera
+IMAGE = "calibration_data_raw/frame_20.jpg"   # any image from your camera
 K_PATH = "cam_K.npy"
 D_PATH = "cam_D.npy"
 K = np.load(K_PATH)
-D = np.load(D_PATH)
+D = np.zeros((4, 1)) # np.load(D_PATH)
 BALANCE = 0.0
 ZOOM    = 1.0
 # ────────────────────────────────────────────
